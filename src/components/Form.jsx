@@ -9,7 +9,7 @@ import {
 const Form = () => {
 	return (
 		<div className="rounded-md overflow-hidden shadow-lg m-3 pb-7 dark:bg-stone-900 dark:border-stone-700 border">
-			<form className="w-11/12 mt-12 m-auto">
+			<form className="w-11/12 mt-12 m-auto form">
 				<AmountComponent />
 				{/* Percent input */}
 				<PercentComponent />

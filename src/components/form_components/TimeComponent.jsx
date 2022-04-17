@@ -12,9 +12,9 @@ export const TimeComponent = () => {
 					<CalendarIcon className="h-5 w-5 fill-slate-400 dark:fill-neutral-300" />
 				</span>
 				<input
-					type="text"
+					type="number"
 					placeholder="Introduce los ciclos"
-					onChange={(e) => setTime(Number(e.target.value))}
+					onChange={(e) => setTime(e.target.value)}
 					className="w-full border-2 border-gray-400 rounded-md py-2 pl-9 pr-3 shadow-sm text-gray-400 dark:bg-neutral-700 dark:border-neutral-500 dark:text-neutral-400 outline-0"
 				/>
 			</label>

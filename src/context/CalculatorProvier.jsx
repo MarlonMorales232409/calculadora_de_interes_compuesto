@@ -18,14 +18,37 @@ const CalculatorProvier = ({ children }) => {
 		dispatch({ type: "clean" });
 	};
 
+	// Check input fields
+
+	const checkInput = (amount, percent, time) => {
+		let message = "";
+
+		if (amount === 0 || percent === 0 || time === 0) {
+			message =
+				"Los campos no pueden estar vacios ni contener datos que no sean numeros maoyores a 0";
+			return { valid: false, message };
+		} else if (!Number(amount) || !Number(percent) || !Number(time)) {
+			message = "Los datos introducidos no pueden ser 0 o texto";
+			return { valid: false, message };
+		} else if (amount < 1 || percent < 1 || time < 1) {
+			message = "Todos los datos introducidos tienen que ser mayor a 0";
+			return { valid: false, message };
+		} else {
+			return { valid: true };
+		}
+	};
+
 	// Calculate the interest
 
-	const calculateTotal = (amount, porcent, time) => {
+	const calculateTotal = (amount, percent, time) => {
 		let results = [];
+		amount = Number(amount);
+		percent = Number(percent);
+		time = Number(time);
 
 		let money = amount;
 		for (let i = 1; i <= time; i++) {
-			let interest = (money * porcent) / 100;
+			let interest = (money * percent) / 100;
 			let total = money + interest;
 
 			results.push({ day: i, money, interest, total });
@@ -47,6 +70,7 @@ const CalculatorProvier = ({ children }) => {
 				setTime,
 				percent,
 				setPercent,
+				checkInput,
 			}}
 		>
 			{children}

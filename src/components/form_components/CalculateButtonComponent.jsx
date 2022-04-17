@@ -1,9 +1,17 @@
 import React, { useContext } from "react";
 import { CalculatorContext } from "../../context/CalculatorContext";
+import Swal from "sweetalert2";
 
 const CalculateButtonComponent = () => {
-	const { state, calculateTotal, cleanState, amount, time, percent } =
-		useContext(CalculatorContext);
+	const {
+		state,
+		calculateTotal,
+		cleanState,
+		amount,
+		time,
+		percent,
+		checkInput,
+	} = useContext(CalculatorContext);
 
 	const handleCalculate = (e) => {
 		e.preventDefault();
@@ -12,7 +20,30 @@ const CalculateButtonComponent = () => {
 			cleanState();
 		}
 
-		calculateTotal(amount, percent, time);
+		let isValid = checkInput(amount, percent, time);
+
+		if (isValid.valid) {
+			calculateTotal(amount, percent, time);
+		} else {
+			Swal.fire({
+				icon: "error",
+				title: "Error...",
+				text: `${isValid.message}`,
+				// confirmButtonColor: "#007bffb2",
+				allowOutsideClick: false,
+				allowEscapeKey: false,
+				allowEnterKey: false,
+				stopKeydownPropagation: false,
+				customClass: {
+					popup: "shadow-lg m-3 pb-7 dark:!bg-stone-900 dark:!border-stone-700 !border-2",
+					confirmButton:
+						"mt-7 !bg-blue-500 dark:bg-blue-800 hover:bg-blue-700 hover:dark:bg-blue-900 text-white dark:text-neutral-300 font-bold py-2 px-7 rounded",
+				},
+			});
+			document.querySelector(".form").reset();
+		}
+
+		console.log(state);
 	};
 
 	return (
